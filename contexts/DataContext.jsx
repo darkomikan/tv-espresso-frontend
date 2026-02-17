@@ -28,7 +28,7 @@ export function DataProvider({ children })
     {
         if (phrase === "")
         {
-            await fetch(`http://192.168.1.28:7080/api/video/getall`, {
+            await fetch(`http://192.168.1.100:7080/api/video/getall`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -50,7 +50,7 @@ export function DataProvider({ children })
         {
             if (by[0])
             {
-                await fetch(`http://192.168.1.28:7080/api/video/getmatching?phrase=${phrase}`, {
+                await fetch(`http://192.168.1.100:7080/api/video/getmatching?phrase=${phrase}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -70,7 +70,7 @@ export function DataProvider({ children })
             }
             else if (by[1])
             {
-                await fetch(`http://192.168.1.28:7080/api/video/getbyactor?actor=${phrase}`, {
+                await fetch(`http://192.168.1.100:7080/api/video/getbyactor?actor=${phrase}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -90,7 +90,7 @@ export function DataProvider({ children })
             }
             else if (by[2])
             {
-                await fetch(`http://192.168.1.28:7080/api/video/getbydirector?director=${phrase}`, {
+                await fetch(`http://192.168.1.100:7080/api/video/getbydirector?director=${phrase}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -113,7 +113,7 @@ export function DataProvider({ children })
 
     async function getGenre(genre)
     {
-        await fetch(`http://192.168.1.28:7080/api/video/getbygenre?genre=${genre}`, {
+        await fetch(`http://192.168.1.100:7080/api/video/getbygenre?genre=${genre}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -134,7 +134,7 @@ export function DataProvider({ children })
 
     async function ensureEmbedded()
     {
-        let res = await fetch(`http://192.168.1.28:7080/api/video/EnsureEmbeddedSubtitles`, {
+        let res = await fetch(`http://192.168.1.100:7080/api/video/EnsureEmbeddedSubtitles`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -169,7 +169,7 @@ export function DataProvider({ children })
             setWaiting(true);
         }, 1000);
 
-        fetch("http://192.168.1.28:7080/api/video/status", {
+        fetch("http://192.168.1.100:7080/api/video/status", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -204,7 +204,7 @@ export function DataProvider({ children })
             audioPlayer.replace(audio4);
         else
             audioPlayer.replace(audio5);
-        audioPlayer.volume = 0.2;
+        audioPlayer.volume = 0.8;
         audioPlayer.play();
     }, [audioPlayer]);
 

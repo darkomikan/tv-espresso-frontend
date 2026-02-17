@@ -1,12 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import { useData } from "../hooks/useData";
 import { useRef, useState } from "react";
+import { router } from "expo-router";
 import Video from "react-native-video";
 
 const Playback = () => {
     const { selectedFilm, selectedSeason, selectedEpisode } = useData();
     const sourcePri = {
-        uri: `http://192.168.1.28:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
+        uri: `http://192.168.1.100:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
         bufferConfig: {
             minBufferMs: 15000,
             maxBufferMs: 50000,
@@ -15,7 +16,7 @@ const Playback = () => {
         }
     };
     const sourceSec = {
-        uri: `http://192.168.1.28:7080/${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`,
+        uri: `http://192.168.1.100:7080/${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`,
         bufferConfig: {
             minBufferMs: 15000,
             maxBufferMs: 50000,
@@ -48,6 +49,7 @@ const Playback = () => {
                         setVideoKey(prev => prev + 1);
                     }
                 }}
+                onEnd={() => router.back()}
                 controls
                 paused={false}
                 repeat={false}
