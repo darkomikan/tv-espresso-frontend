@@ -14,8 +14,8 @@ const Home = () => {
     const { videos, search, getGenre, setSelectedFilm, setSelectedSeason } = useData();
 
     const [phrase, setPhrase] = useState("");
-    const [focused, setFocused] = useState([false, false, false, false, false, false, false]);
-    const [selected, setSelected] = useState([true, false, false, false, false, false, false]);
+    const [focused, setFocused] = useState([false, false, false, false, false, false, false, false, false]);
+    const [selected, setSelected] = useState([true, false, false, false, false, false, false, false, false]);
     const [focusedS, setFocusedS] = useState([false, false, false]);
     const [selectedS, setSelectedS] = useState([true, false, false]);
 
@@ -40,14 +40,18 @@ const Home = () => {
         if (selected[1])
             await getGenre("akcija");
         else if (selected[2])
-            await getGenre("komedija");
+            await getGenre("krimi");
         else if (selected[3])
-            await getGenre("sci-fi");
+            await getGenre("komedija");
         else if (selected[4])
-            await getGenre("triler");
+            await getGenre("sci-fi");
         else if (selected[5])
-            await getGenre("vestern");
+            await getGenre("fantazija");
         else if (selected[6])
+            await getGenre("triler");
+        else if (selected[7])
+            await getGenre("vestern");
+        else if (selected[8])
             await getGenre("veselja");
     }, [selected]);
 
@@ -63,46 +67,58 @@ const Home = () => {
             <View style={{ width: "15%", backgroundColor: "black", justifyContent: "space-between", borderWidth: 3, borderColor: "#6600ff", borderRightWidth: 0 }}>
                 <View>
                     <Pressable style={[styles.btn, focused[0] && styles.focused, selected[0] && styles.selected]}
-                        onFocus={() => setFocused([true, false, false, false, false, false, false])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([true, false, false, false, false, false, false])}>
+                        onFocus={() => setFocused([true, false, false, false, false, false, false, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([true, false, false, false, false, false, false, false, false])}>
                         <FontAwesome name="search" style={[styles.title, focused[0] && styles.textFocused]}></FontAwesome>
                     </Pressable>
                     <Pressable style={[styles.btn, focused[1] && styles.focused, selected[1] && styles.selected]}
-                        onFocus={() => setFocused([false, true, false, false, false, false, false])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([false, true, false, false, false, false, false])}>
+                        onFocus={() => setFocused([false, true, false, false, false, false, false, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, true, false, false, false, false, false, false, false])}>
                         <Text style={[styles.title, focused[1] && styles.textFocused]}>Akcija</Text>
                     </Pressable>
                     <Pressable style={[styles.btn, focused[2] && styles.focused, selected[2] && styles.selected]}
-                        onFocus={() => setFocused([false, false, true, false, false, false, false])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([false, false, true, false, false, false, false])}>
-                        <Text style={[styles.title, focused[2] && styles.textFocused]}>Komedija</Text>
+                        onFocus={() => setFocused([false, false, true, false, false, false, false, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, true, false, false, false, false, false, false])}>
+                        <Text style={[styles.title, focused[2] && styles.textFocused]}>Krimi</Text>
                     </Pressable>
                     <Pressable style={[styles.btn, focused[3] && styles.focused, selected[3] && styles.selected]}
-                        onFocus={() => setFocused([false, false, false, true, false, false, false])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([false, false, false, true, false, false, false])}>
-                        <Text style={[styles.title, focused[3] && styles.textFocused]}>Sci-Fi</Text>
+                        onFocus={() => setFocused([false, false, false, true, false, false, false, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, false, true, false, false, false, false, false])}>
+                        <Text style={[styles.title, focused[3] && styles.textFocused]}>Komedija</Text>
                     </Pressable>
                     <Pressable style={[styles.btn, focused[4] && styles.focused, selected[4] && styles.selected]}
-                        onFocus={() => setFocused([false, false, false, false, true, false, false])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([false, false, false, false, true, false, false])}>
-                        <Text style={[styles.title, focused[4] && styles.textFocused]}>Triler</Text>
+                        onFocus={() => setFocused([false, false, false, false, true, false, false, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, false, false, true, false, false, false, false])}>
+                        <Text style={[styles.title, focused[4] && styles.textFocused]}>Sci-Fi</Text>
                     </Pressable>
                     <Pressable style={[styles.btn, focused[5] && styles.focused, selected[5] && styles.selected]}
-                        onFocus={() => setFocused([false, false, false, false, false, true, false])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([false, false, false, false, false, true, false])}>
-                        <Text style={[styles.title, focused[5] && styles.textFocused]}>Vestern</Text>
+                        onFocus={() => setFocused([false, false, false, false, false, true, false, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, false, false, false, true, false, false, false])}>
+                        <Text style={[styles.title, focused[5] && styles.textFocused]}>Fantazija</Text>
                     </Pressable>
                     <Pressable style={[styles.btn, focused[6] && styles.focused, selected[6] && styles.selected]}
-                        onFocus={() => setFocused([false, false, false, false, false, false, true])}
-                        onBlur={() => setFocused([false, false, false, false, false, false, false])}
-                        onPress={() => setSelected([false, false, false, false, false, false, true])}>
-                        <Text style={[styles.title, focused[6] && styles.textFocused]}>Veselja</Text>
+                        onFocus={() => setFocused([false, false, false, false, false, false, true, false, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, false, false, false, false, true, false, false])}>
+                        <Text style={[styles.title, focused[6] && styles.textFocused]}>Triler</Text>
+                    </Pressable>
+                    <Pressable style={[styles.btn, focused[7] && styles.focused, selected[7] && styles.selected]}
+                        onFocus={() => setFocused([false, false, false, false, false, false, false, true, false])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, false, false, false, false, false, true, false])}>
+                        <Text style={[styles.title, focused[7] && styles.textFocused]}>Vestern</Text>
+                    </Pressable>
+                    <Pressable style={[styles.btn, focused[8] && styles.focused, selected[8] && styles.selected]}
+                        onFocus={() => setFocused([false, false, false, false, false, false, false, false, true])}
+                        onBlur={() => setFocused([false, false, false, false, false, false, false, false, false])}
+                        onPress={() => setSelected([false, false, false, false, false, false, false, false, true])}>
+                        <Text style={[styles.title, focused[8] && styles.textFocused]}>Veselja</Text>
                     </Pressable>
                 </View>
                 <Text style={styles.title}>v{Constants.default.expoConfig.version}</Text>

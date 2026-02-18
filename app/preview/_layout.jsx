@@ -26,10 +26,7 @@ const PreviewLayout = () => {
                 }
             }).then(async res => {
                 if (res.ok)
-                {
-                    const dur = await res.json();
-                    setDuration(dur.substring(0, dur.lastIndexOf(",")));
-                }
+                    setDuration(await res.json());
             });
         }
         else
