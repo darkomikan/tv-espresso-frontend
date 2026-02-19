@@ -18,7 +18,7 @@ const PreviewLayout = () => {
     useEffect(() => {
         if (pathname === "/preview/playButton")
         {
-            fetch(`http://192.168.1.100:7080/api/video/getduration?uri=${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`, {
+            fetch(`http://192.168.1.100:7080/api/video/getduration?uri=${encodeURIComponent(selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri)}`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",

@@ -3,7 +3,6 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import gif from "../assets/tv-espresso.gif";
 import { View } from "react-native";
 import { useAudioPlayer } from "expo-audio";
-import { useEventListener } from "expo";
 
 const audio1 = require('../assets/six-blade-knife.mp3');
 const audio2 = require('../assets/portobello-belle.mp3');
@@ -50,7 +49,7 @@ export function DataProvider({ children })
         {
             if (by[0])
             {
-                await fetch(`http://192.168.1.100:7080/api/video/getmatching?phrase=${phrase}`, {
+                await fetch(`http://192.168.1.100:7080/api/video/getmatching?phrase=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -70,7 +69,7 @@ export function DataProvider({ children })
             }
             else if (by[1])
             {
-                await fetch(`http://192.168.1.100:7080/api/video/getbyactor?actor=${phrase}`, {
+                await fetch(`http://192.168.1.100:7080/api/video/getbyactor?actor=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -90,7 +89,7 @@ export function DataProvider({ children })
             }
             else if (by[2])
             {
-                await fetch(`http://192.168.1.100:7080/api/video/getbydirector?director=${phrase}`, {
+                await fetch(`http://192.168.1.100:7080/api/video/getbydirector?director=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -113,7 +112,7 @@ export function DataProvider({ children })
 
     async function getGenre(genre)
     {
-        await fetch(`http://192.168.1.100:7080/api/video/getbygenre?genre=${genre}`, {
+        await fetch(`http://192.168.1.100:7080/api/video/getbygenre?genre=${encodeURIComponent(genre)}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
