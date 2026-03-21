@@ -3,9 +3,10 @@ import { useData } from "../hooks/useData";
 import { useRef, useState } from "react";
 import { router } from "expo-router";
 import Video from "react-native-video";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Playback = () => {
-    const { selectedFilm, selectedSeason, selectedEpisode } = useData();
+    const { selectedFilm, selectedSeason, selectedEpisode, seekTimestamp } = useData();
     const sourcePri = {
         uri: `http://192.168.1.100:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
         bufferConfig: {
@@ -49,7 +50,19 @@ const Playback = () => {
                         setVideoKey(prev => prev + 1);
                     }
                 }}
-                onEnd={() => router.back()}
+                onLoad={() => {
+                    if (seekTimestamp > 0)
+                        playerRef.current.seek(seekTimestamp);
+                }}
+                onEnd={async () => {
+                    await AsyncStorage.removeItem(selectedFilm.Uri !== "" ? selectedFilm.Id : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Id);
+                    router.back();
+                }}
+                onProgress={async e => {
+                    let timestamp = Math.round(e.currentTime);
+                    if (timestamp % 300 === 0 && timestamp > 0)
+                        await AsyncStorage.setItem(selectedFilm.Uri !== "" ? selectedFilm.Id : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Id, JSON.stringify(timestamp), () => console.log((selectedFilm.Uri !== "" ? selectedFilm.Id : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Id) + "  " + timestamp));
+                }}
                 controls
                 paused={false}
                 repeat={false}

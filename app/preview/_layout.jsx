@@ -87,8 +87,9 @@ const PreviewLayout = () => {
                     </View>}
                     {selectedFilm.Actors.length > 0 && <View style={{ flexDirection: "row", justifyContent: "center", width: "100%" }}>
                         <Text style={[styles.title, { marginRight: 10 }]}>Uloge:</Text>
-                        <Text style={styles.title}>{selectedFilm.Actors.join("  |  ")}</Text>
+                        <Text style={styles.title}>{selectedFilm.Actors.slice(0, 4).join("  |  ")}</Text>
                     </View>}
+                    {selectedFilm.Actors.length > 4 && <Text style={styles.title}>{selectedFilm.Actors.slice(4).join("  |  ")}</Text>}
                 </View>
                 <View style={{ height: "80%" }}>
                     <Stack screenOptions={{ headerShown: false }}>
