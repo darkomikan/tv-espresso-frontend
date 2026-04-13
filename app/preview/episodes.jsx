@@ -20,7 +20,7 @@ const Episodes = () => {
                     onBlur={(e) => e.currentTarget.setNativeProps({style: { backgroundColor: "black", borderColor: "#6600ff" }})}
                     onPress={() => {handleEpisode(item.Episode)}} >
                     <Image style={{ width: (width * 0.8 - 11) * 0.2 - 11, height: ((width * 0.8 - 11) * 0.2 - 11) * 1.5 }} contentFit="contain"
-                        source={{ uri: `http://192.168.1.100:7080/${item.CoverUri}` }}/>
+                        source={{ uri: `http://109.165.195.83:7080/${item.CoverUri}` }}/>
                     <View style={{ padding: 5 }}>
                         <Text style={[styles.title]}>{item.Episode}. Epizoda</Text>
                         {item.EpisodeTitle !== "" && item.EpisodeTitle !== undefined &&

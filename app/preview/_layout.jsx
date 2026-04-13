@@ -11,14 +11,14 @@ const PreviewLayout = () => {
     const pathname = usePathname();
     const { width } = useWindowDimensions();
     const { selectedFilm, selectedSeason, selectedEpisode } = useData();
-    const audioPlayer = useAudioPlayer(`http://192.168.1.100:7080/${selectedFilm.ThemeUri}`);
+    const audioPlayer = useAudioPlayer(`http://109.165.195.83:7080/${selectedFilm.ThemeUri}`);
 
     const [duration, setDuration] = useState("");
 
     useEffect(() => {
         if (pathname === "/preview/playButton")
         {
-            fetch(`http://192.168.1.100:7080/api/video/getduration?uri=${encodeURIComponent(selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri)}`, {
+            fetch(`http://109.165.195.83:7080/api/video/getduration?uri=${encodeURIComponent(selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri)}`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -45,7 +45,7 @@ const PreviewLayout = () => {
         <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ width: "20%", backgroundColor: "black", borderWidth: 3, borderColor: "#6600ff", borderRightWidth: 0 }}>
                 <Image style={{ width: width * 0.2 - 3, height: (width * 0.2 - 3) * 1.5 }} contentFit="contain" transition={500}
-                    source={{ uri: `http://192.168.1.100:7080/${pathname !== "/preview/seasons" && selectedFilm.Uri === "" ? selectedFilm.Series[selectedSeason - 1][0].CoverUri : selectedFilm.CoverUri}` }}/>
+                    source={{ uri: `http://109.165.195.83:7080/${pathname !== "/preview/seasons" && selectedFilm.Uri === "" ? selectedFilm.Series[selectedSeason - 1][0].CoverUri : selectedFilm.CoverUri}` }}/>
                 <View style={{ flexDirection: "row", position: "absolute", width: "100%" }}>
                     {selectedFilm.Uri4k !== "" ? <Image source={uhdLogo} style={{ width: 48, height: 36 }} contentFit="fill" /> :
                         (selectedFilm.VideoFhd && <Image source={fhdLogo} style={{ width: 48, height: 36 }} contentFit="fill" />)}

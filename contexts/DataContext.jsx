@@ -9,6 +9,7 @@ const audio2 = require('../assets/portobello-belle.mp3');
 const audio3 = require('../assets/love-over-gold.mp3');
 const audio4 = require('../assets/on-every-street.mp3');
 const audio5 = require('../assets/how-long.mp3');
+const audio6 = require('../assets/sabrina-espresso.mp3');
 export const DataContext = createContext();
 
 export function DataProvider({ children })
@@ -29,7 +30,7 @@ export function DataProvider({ children })
     {
         if (phrase === "")
         {
-            await fetch(`http://192.168.1.100:7080/api/video/getall`, {
+            await fetch(`http://109.165.195.83:7080/api/video/getall`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -51,7 +52,7 @@ export function DataProvider({ children })
         {
             if (by[0])
             {
-                await fetch(`http://192.168.1.100:7080/api/video/getmatching?phrase=${encodeURIComponent(phrase)}`, {
+                await fetch(`http://109.165.195.83:7080/api/video/getmatching?phrase=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -71,7 +72,7 @@ export function DataProvider({ children })
             }
             else if (by[1])
             {
-                await fetch(`http://192.168.1.100:7080/api/video/getbyactor?actor=${encodeURIComponent(phrase)}`, {
+                await fetch(`http://109.165.195.83:7080/api/video/getbyactor?actor=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -91,7 +92,7 @@ export function DataProvider({ children })
             }
             else if (by[2])
             {
-                await fetch(`http://192.168.1.100:7080/api/video/getbydirector?director=${encodeURIComponent(phrase)}`, {
+                await fetch(`http://109.165.195.83:7080/api/video/getbydirector?director=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -114,7 +115,7 @@ export function DataProvider({ children })
 
     async function getGenre(genre)
     {
-        await fetch(`http://192.168.1.100:7080/api/video/getbygenre?genre=${encodeURIComponent(genre)}`, {
+        await fetch(`http://109.165.195.83:7080/api/video/getbygenre?genre=${encodeURIComponent(genre)}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -135,7 +136,7 @@ export function DataProvider({ children })
 
     async function ensureEmbedded()
     {
-        let res = await fetch(`http://192.168.1.100:7080/api/video/EnsureEmbeddedSubtitles`, {
+        let res = await fetch(`http://109.165.195.83:7080/api/video/EnsureEmbeddedSubtitles`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -170,7 +171,7 @@ export function DataProvider({ children })
             setWaiting(true);
         }, 1000);
 
-        fetch("http://192.168.1.100:7080/api/video/status", {
+        fetch("http://109.165.195.83:7080/api/video/status", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -195,16 +196,18 @@ export function DataProvider({ children })
 
     const rollAudio = useCallback(() => {
         let n = Math.random();
-        if (n < 0.2)
+        if (n < 0.16)
             audioPlayer.replace(audio1);
-        else if (n < 0.4)
+        else if (n < 0.33)
             audioPlayer.replace(audio2);
-        else if (n < 0.6)
+        else if (n < 0.5)
             audioPlayer.replace(audio3);
-        else if (n < 0.8)
+        else if (n < 0.66)
             audioPlayer.replace(audio4);
-        else
+        else if (n < 0.83)
             audioPlayer.replace(audio5);
+        else
+            audioPlayer.replace(audio6);
         audioPlayer.volume = 0.8;
         audioPlayer.play();
     }, [audioPlayer]);

@@ -20,7 +20,7 @@ const Seasons = () => {
                     onBlur={(e) => e.currentTarget.setNativeProps({style: { backgroundColor: "black", borderColor: "#6600ff" }})}
                     onPress={() => {handleSeason(item[0].Season)}} >
                     <Image style={{ width: (width * 0.8 - 11) * 0.2 - 11, height: ((width * 0.8 - 11) * 0.2 - 11) * 1.5 }} contentFit="contain"
-                        source={{ uri: `http://192.168.1.100:7080/${item[0].CoverUri}` }}/>
+                        source={{ uri: `http://109.165.195.83:7080/${item[0].CoverUri}` }}/>
                     <Text style={[styles.title, { paddingVertical: 5 }]}>Sezona {item[0].Season} ({item[0].Year})</Text>
                 </Pressable>
             )} />

@@ -9,7 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Playback = () => {
     const { selectedFilm, selectedSeason, selectedEpisode, seekTimestamp } = useData();
     const sourcePri = {
-        uri: `http://192.168.1.100:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
+        uri: `http://109.165.195.83:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
         bufferConfig: {
             minBufferMs: 15000,
             maxBufferMs: 50000,
@@ -18,7 +18,7 @@ const Playback = () => {
         }
     };
     const sourceSec = {
-        uri: `http://192.168.1.100:7080/${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`,
+        uri: `http://109.165.195.83:7080/${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`,
         bufferConfig: {
             minBufferMs: 15000,
             maxBufferMs: 50000,
@@ -81,7 +81,7 @@ const Playback = () => {
                         await AsyncStorage.setItem(selectedFilm.Uri !== "" ? selectedFilm.Id : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Id, JSON.stringify(timestamp));
                     if (skipSegmentStart.length > 0 && timestamp % 2 === 0)
                     {
-                        let skipIndex = skipSegmentStart.findIndex(s => timestamp >= s);
+                        let skipIndex = skipSegmentStart.findLastIndex(s => timestamp >= s);
                         if (skipIndex > -1 && timestamp < skipSegmentEnd[skipIndex])
                             setShowSkip(skipIndex);
                         else
