@@ -5,7 +5,7 @@ import { router } from "expo-router";
 
 const Seasons = () => {
     const { width } = useWindowDimensions();
-    const { selectedFilm, setSelectedSeason } = useData();
+    const { hostname, selectedFilm, setSelectedSeason } = useData();
 
     const handleSeason = (season) => {
         setSelectedSeason(season);
@@ -20,7 +20,7 @@ const Seasons = () => {
                     onBlur={(e) => e.currentTarget.setNativeProps({style: { backgroundColor: "black", borderColor: "#6600ff" }})}
                     onPress={() => {handleSeason(item[0].Season)}} >
                     <Image style={{ width: (width * 0.8 - 11) * 0.2 - 11, height: ((width * 0.8 - 11) * 0.2 - 11) * 1.5 }} contentFit="contain"
-                        source={{ uri: `http://109.165.195.83:7080/${item[0].CoverUri}` }}/>
+                        source={{ uri: `http://${hostname}:7080/${item[0].CoverUri}` }}/>
                     <Text style={[styles.title, { paddingVertical: 5 }]}>Sezona {item[0].Season} ({item[0].Year})</Text>
                 </Pressable>
             )} />

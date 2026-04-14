@@ -11,7 +11,7 @@ import { useData } from "../hooks/useData";
 const Home = () => {
     const { width } = useWindowDimensions();
 
-    const { videos, search, getGenre, setSelectedFilm, setSelectedSeason } = useData();
+    const { hostname, videos, search, getGenre, setSelectedFilm, setSelectedSeason } = useData();
 
     const [phrase, setPhrase] = useState("");
     const [focused, setFocused] = useState([false, false, false, false, false, false, false, false, false]);
@@ -153,7 +153,7 @@ const Home = () => {
                             onBlur={(e) => e.currentTarget.setNativeProps({style: { backgroundColor: "black", borderColor: "#6600ff" }})}
                             onPress={() => {handlePreview(item)}} >
                             <Image style={{ width: (width * 0.85 - 11) * 0.2 - 11, height: ((width * 0.85 - 11) * 0.2 - 11) * 1.5 }} contentFit="contain"
-                                source={{ uri: `http://109.165.195.83:7080/${item.CoverUri}` }}/>
+                                source={{ uri: `http://${hostname}:7080/${item.CoverUri}` }}/>
                             <View style={{ flexDirection: "row", position: "absolute", width: "100%" }}>
                                 {item.Uri4k !== "" ? <Image source={uhdLogo} style={{ width: 40, height: 30 }} contentFit="fill" /> :
                                     (item.VideoFhd && <Image source={fhdLogo} style={{ width: 40, height: 30 }} contentFit="fill" />)}

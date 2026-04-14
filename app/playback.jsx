@@ -7,9 +7,9 @@ import Video from "react-native-video";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Playback = () => {
-    const { selectedFilm, selectedSeason, selectedEpisode, seekTimestamp } = useData();
+    const { hostname, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp } = useData();
     const sourcePri = {
-        uri: `http://109.165.195.83:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
+        uri: `http://${hostname}:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
         bufferConfig: {
             minBufferMs: 15000,
             maxBufferMs: 50000,
@@ -18,7 +18,7 @@ const Playback = () => {
         }
     };
     const sourceSec = {
-        uri: `http://109.165.195.83:7080/${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`,
+        uri: `http://${hostname}:7080/${selectedFilm.Uri !== "" ? selectedFilm.Uri : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri}`,
         bufferConfig: {
             minBufferMs: 15000,
             maxBufferMs: 50000,

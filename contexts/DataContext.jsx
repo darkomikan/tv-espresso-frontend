@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
 import { createContext, useCallback, useEffect, useState } from "react";
 import gif from "../assets/tv-espresso.gif";
-import { View } from "react-native";
+import { View, TextInput } from "react-native";
 import { useAudioPlayer } from "expo-audio";
 
 const audio1 = require('../assets/six-blade-knife.mp3');
@@ -16,6 +16,8 @@ export function DataProvider({ children })
 {
     const [waiting, setWaiting] = useState(true);
     const [online, setOnline] = useState(false);
+    const [ip, setIp] = useState("109.165.");
+    const [hostname, setHostname] = useState("192.168.1.100");
 
     const [videos, setVideos] = useState([]);
     const [selectedFilm, setSelectedFilm] = useState({});
@@ -30,7 +32,7 @@ export function DataProvider({ children })
     {
         if (phrase === "")
         {
-            await fetch(`http://109.165.195.83:7080/api/video/getall`, {
+            await fetch(`http://${hostname}:7080/api/video/getall`, {
                 method: "GET",
                 headers: {
                     Accept: "application/json",
@@ -52,7 +54,7 @@ export function DataProvider({ children })
         {
             if (by[0])
             {
-                await fetch(`http://109.165.195.83:7080/api/video/getmatching?phrase=${encodeURIComponent(phrase)}`, {
+                await fetch(`http://${hostname}:7080/api/video/getmatching?phrase=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -72,7 +74,7 @@ export function DataProvider({ children })
             }
             else if (by[1])
             {
-                await fetch(`http://109.165.195.83:7080/api/video/getbyactor?actor=${encodeURIComponent(phrase)}`, {
+                await fetch(`http://${hostname}:7080/api/video/getbyactor?actor=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -92,7 +94,7 @@ export function DataProvider({ children })
             }
             else if (by[2])
             {
-                await fetch(`http://109.165.195.83:7080/api/video/getbydirector?director=${encodeURIComponent(phrase)}`, {
+                await fetch(`http://${hostname}:7080/api/video/getbydirector?director=${encodeURIComponent(phrase)}`, {
                     method: "GET",
                     headers: {
                         Accept: "application/json",
@@ -115,7 +117,7 @@ export function DataProvider({ children })
 
     async function getGenre(genre)
     {
-        await fetch(`http://109.165.195.83:7080/api/video/getbygenre?genre=${encodeURIComponent(genre)}`, {
+        await fetch(`http://${hostname}:7080/api/video/getbygenre?genre=${encodeURIComponent(genre)}`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -136,7 +138,7 @@ export function DataProvider({ children })
 
     async function ensureEmbedded()
     {
-        let res = await fetch(`http://109.165.195.83:7080/api/video/EnsureEmbeddedSubtitles`, {
+        let res = await fetch(`http://${hostname}:7080/api/video/EnsureEmbeddedSubtitles`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -171,7 +173,7 @@ export function DataProvider({ children })
             setWaiting(true);
         }, 1000);
 
-        fetch("http://109.165.195.83:7080/api/video/status", {
+        fetch(`http://${hostname}:7080/api/video/status`, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -246,13 +248,24 @@ export function DataProvider({ children })
     }, [online, audioPlayer, rollAudio])
 
     return (
-        <DataContext.Provider value={{ videos, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp,
+        <DataContext.Provider value={{ hostname, videos, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp,
             search, getGenre, setSelectedFilm, setSelectedSeason, setSelectedEpisode, ensureEmbedded, setSeekTimestamp }}>
             {online ? children : 
             <View style={{ flex: 1, backgroundColor: "black" }}>
                 <View style={{ backgroundColor: "#b5b5b5", width: "50%", height: "50%", position: "absolute",
                     marginTop: "18%", marginLeft: "25%" }} />
                 <Image source={gif} style={{ width: "100%", height: "100%" }} contentFit="contain" />
+                <TextInput style={{
+                    position: "absolute",
+                    color: "#ffdd00",
+                    backgroundColor: "#090909",
+                    padding: 10,
+                    margin: 5,
+                    width: "50%",
+                    fontSize: 18,
+                    bottom: 20,
+                    right: 20,
+                }} value={ip} onChangeText={setIp} onSubmitEditing={() => { setHostname(ip); }}/>
             </View>}
         </DataContext.Provider>
     );
