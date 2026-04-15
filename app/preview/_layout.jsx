@@ -39,7 +39,7 @@ const PreviewLayout = () => {
             if (pathname === "/playback")
                 audioPlayer.pause();
         }
-    }, [selectedFilm, pathname]);
+    }, [hostname, selectedFilm, pathname]);
 
     return (
         <View style={{ flex: 1, flexDirection: "row" }}>

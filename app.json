@@ -3,7 +3,7 @@
     "scheme": "tv-espresso",
     "name": "TV Espresso",
     "slug": "tv-espresso",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

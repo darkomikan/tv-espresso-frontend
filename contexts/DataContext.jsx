@@ -16,7 +16,7 @@ export function DataProvider({ children })
 {
     const [waiting, setWaiting] = useState(true);
     const [online, setOnline] = useState(false);
-    const [ip, setIp] = useState("109.165.");
+    const [ip, setIp] = useState("192.168.1.100");
     const [hostname, setHostname] = useState("192.168.1.100");
 
     const [videos, setVideos] = useState([]);
@@ -185,7 +185,7 @@ export function DataProvider({ children })
                 clearTimeout(waitingTimeout);
                 setTimeout(() => {
                     setOnline(true);
-                }, 5000);
+                }, 3000);
             }
             else
                 setOnline(false);
@@ -194,7 +194,7 @@ export function DataProvider({ children })
         }).finally(() => {
             setWaiting(false);
         });
-    }, []);
+    }, [hostname]);
 
     const rollAudio = useCallback(() => {
         let n = Math.random();
@@ -261,10 +261,10 @@ export function DataProvider({ children })
                     backgroundColor: "#090909",
                     padding: 10,
                     margin: 5,
-                    width: "50%",
+                    width: "25%",
                     fontSize: 18,
-                    bottom: 20,
-                    right: 20,
+                    top: 40,
+                    right: 380
                 }} value={ip} onChangeText={setIp} onSubmitEditing={() => { setHostname(ip); }}/>
             </View>}
         </DataContext.Provider>
