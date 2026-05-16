@@ -25,6 +25,7 @@ export function DataProvider({ children })
     const [selectedEpisode, setSelectedEpisode] = useState(0);
 
     const [seekTimestamp, setSeekTimestamp] = useState(0);
+    const [autoplay, setAutoplay] = useState(false);
 
     const audioPlayer = useAudioPlayer();
 
@@ -248,8 +249,8 @@ export function DataProvider({ children })
     }, [online, audioPlayer, rollAudio])
 
     return (
-        <DataContext.Provider value={{ hostname, videos, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp,
-            search, getGenre, setSelectedFilm, setSelectedSeason, setSelectedEpisode, ensureEmbedded, setSeekTimestamp }}>
+        <DataContext.Provider value={{ hostname, videos, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp, autoplay,
+            search, getGenre, setSelectedFilm, setSelectedSeason, setSelectedEpisode, ensureEmbedded, setSeekTimestamp, setAutoplay }}>
             {online ? children : 
             <View style={{ flex: 1, backgroundColor: "black" }}>
                 <View style={{ backgroundColor: "#b5b5b5", width: "50%", height: "50%", position: "absolute",

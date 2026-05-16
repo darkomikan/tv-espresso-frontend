@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PlayButton = () => {
-    const { videos, selectedFilm, selectedSeason, selectedEpisode, search, setSelectedFilm, setSelectedSeason, ensureEmbedded, setSeekTimestamp } = useData();
+    const { hostname, videos, selectedFilm, selectedSeason, selectedEpisode, autoplay, setSelectedFilm, setSelectedSeason, ensureEmbedded, setSeekTimestamp, setAutoplay } = useData();
     const [loading, setLoading] = useState(false);
     const [timestamp, setTimestamp] = useState(1);
 
@@ -55,12 +55,23 @@ const PlayButton = () => {
                     setNextTitle(next);
                 else
                 {
-                    await search("");
-                    setTimeout(() => {
-                        let next = videos.find(v => v.PreviousTitle === selectedFilm.Title);
-                        if (next !== undefined)
-                            setNextTitle(next);
-                    }, 1000);
+                    await fetch(`http://${hostname}:7080/api/video/getall`, {
+                        method: "GET",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json"
+                        }
+                    }).then(async res => {
+                        if (res.ok)
+                        {
+                            let result = await res.json();
+                            let next = result.find(v => v.PreviousTitle === selectedFilm.Title);
+                            if (next !== undefined)
+                                setNextTitle(next);
+                        }
+                        else
+                            console.log(res.status);
+                    }, () => {});
                 }
             }
         }
@@ -68,6 +79,14 @@ const PlayButton = () => {
 
         return () => { clearInterval(autoCheckExistingTimestamp); };
     }, [selectedFilm, selectedSeason, selectedEpisode]);
+
+    useEffect(() => {
+        if (autoplay)
+        {
+            setAutoplay(false);
+            handlePlay(false);
+        }
+    }, [autoplay])
 
     return (
         <View style={{ backgroundColor: "black", height: "100%", justifyContent: "center", alignItems: "center" }}>

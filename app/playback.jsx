@@ -7,7 +7,7 @@ import Video from "react-native-video";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Playback = () => {
-    const { hostname, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp } = useData();
+    const { hostname, selectedFilm, selectedSeason, selectedEpisode, seekTimestamp, setSelectedSeason, setSelectedEpisode, setAutoplay } = useData();
     const sourcePri = {
         uri: `http://${hostname}:7080/${selectedFilm.Uri4k !== "" ? selectedFilm.Uri4k : (selectedFilm.Uri !== "" ? selectedFilm.Uri : (selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k !== "" ? selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri4k : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Uri))}`,
         bufferConfig: {
@@ -73,6 +73,20 @@ const Playback = () => {
                 }}
                 onEnd={async () => {
                     await AsyncStorage.removeItem(selectedFilm.Uri !== "" ? selectedFilm.Id : selectedFilm.Series[selectedSeason - 1][selectedEpisode - 1].Id);
+                    if (selectedFilm.Uri === "")
+                    {
+                        if (selectedFilm.Series[selectedSeason - 1].length > selectedEpisode)
+                        {
+                            setAutoplay(true);
+                            setSelectedEpisode(selectedEpisode + 1);
+                        }
+                        else if (selectedFilm.Series[selectedSeason - 1].length === selectedEpisode && selectedFilm.Series.length > selectedSeason)
+                        {
+                            setAutoplay(true);
+                            setSelectedEpisode(1);
+                            setSelectedSeason(selectedSeason + 1);
+                        }
+                    }
                     router.back();
                 }}
                 onProgress={async e => {
